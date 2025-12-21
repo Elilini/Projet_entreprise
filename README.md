@@ -1,4 +1,4 @@
-# Projet Algorithmique L2 - Elilini et Rania
+# Projet Algorithmique L2 - Projet entreprise
 
 Ce projet permet de générer un diagnostic stratégique d'entreprise à partir d'un numéro SIREN. 
 Le système récupère les données d'identification, analyse le contexte actuel via le web et utilise une IA (Mistral) pour produire un bilan complet.
