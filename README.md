@@ -1,43 +1,78 @@
-Projet Algorithmique L2 - Entreprise:Instructions d'installation et d'exécution
-Membres du groupe :
-IDHAYAKUMAR Elilini -44011065
-YAYHA LABCHIRI Rania 44008335
+# Projet Algorithmique L2 - Elilini et Rania
 
+Ce projet permet de générer un diagnostic stratégique d'entreprise à partir d'un numéro SIREN. 
+Le système récupère les données d'identification, analyse le contexte actuel via le web et utilise une IA (Mistral) pour produire un bilan complet.
 
-**1. Prérequis Système**
-Pour l'environnement : installer Python 3.11.9.
-Pour l'IA Locale:
-Installer Ollama et télécharger le modèle Mistral 
-Ensuite taper dans windows powershell:ollama pull mistral
+**Membres du groupe :**
 
-**2.Structure du projet**
+* IDHAYAKUMAR Elilini (44011065)
+* YAYHA LABCHIRI Rania (44008335)
+--
 
-**3. Configuration du Backend**
-Se placer dans le dossier backend/.
+## 1. Installation
 
-Créer l'environnement virtuel :
-Dans powershell taper:python -m venv venv
+Il faut **Python 3.11.9** installé sur la machine.
 
-Activer l'environnement :
-Taper dans Windows powershell: .\venv\Scripts\activate
+Pour l'IA, il faut installer **Ollama**. Une fois l'installation finie, il faut télécharger le modèle Mistral pour que le code puisse l'appeler. Pour ça, ouvrir un terminal (powershell) et taper :
+`ollama pull mistral`
 
-Installer les dépendances :
-Taper dans Windows powershell:pip install fastapi uvicorn requests duckduckgo_search
+---
 
-Lancer le serveur :
-Taper dans Windows powershell:python main.py
-Le serveur est prêt sur http://127.0.0.1:8000.
+## 2. Structure du projet et rôle des fichiers
 
-**4:**
-Pour lancer le serveur il suffit de taper ces commandes dans powershell:
-cd C:\projet-entreprise(lien du fichier dans lequel est le projet)
+**Dossier backend :**
+
+* **main.py** : C'est le cœur du serveur (FastAPI). Il reçoit le SIREN du frontend et appelle les autres scripts pour regrouper les informations avant de renvoyer le résultat final.
+* **sirene.py** : Ce fichier s'occupe de l'extraction des données. Il parcourt le fichier `sirene.csv` pour récupérer le nom et les informations administratives de l'entreprise si elle est dans la base locale.
+* **analyse.py** : Ce module définit la manière dont on va analyser l'entreprise. Il va chercher des informations récentes sur le web si besoin et prépare le "prompt" pour que l'IA Mistral sache comment rédiger le diagnostic (santé financière, perspectives 2050).
+* **data/sirene.csv** : Le fichier qui contient la base de données des entreprises.
+
+**Dossier frontend :**
+
+* **index.html** et **style.css** : L'interface utilisateur pour afficher le formulaire de recherche et le tableau de bord.
+* **script.js** : Il fait le lien avec le backend. Il récupère les données JSON de l'analyse et pilote les graphiques.
+* **chart.js** : C'est une bibliothèque JavaScript externe utilisée pour dessiner les graphiques de manière dynamique (courbes de croissance, jauge de santé et barres de pollution CO2).
+
+**Dossier Rapport :**
+
+* Contient le rapport final en PDF et les sources LaTeX qui ont servi à le rédiger.
+
+---
+
+## 3. Comment lancer le projet
+
+### Étape 1 : Préparer l'environnement
+
+Ouvrir un terminal powershell dans le dossier du projet et taper :
+
+```powershell
+python -m venv venv
+.\venv\Scripts\activate
+pip install fastapi uvicorn requests duckduckgo_search
+
+```
+
+### Étape 2 : Lancer le serveur
+
+Pour lancer ou relancer le serveur rapidement :
+
+```powershell
 .\venv\Scripts\activate
 cd backend
 python main.py
 
+```
 
+*Le serveur sera actif sur [http://127.0.0.1:8000](http://127.0.0.1:8000).*
 
-**5. Lancement du Frontend**
-Naviguer dans le dossier frontend/.
-Ouvrir le fichier index.html avec un navigateur web.
-Saisir un SIREN (ex: 542051180) pour lancer l'analyse
+### Étape 3 : Lancer l'interface
+
+Ouvrir le fichier `frontend/index.html` dans un navigateur. On saisit un SIREN (par exemple 542051180) et on lance l'analyse.
+
+---
+
+## 4. Précisions supplémentaires
+
+Si le SIREN n'est pas trouvé dans le fichier CSV, le script `analyse.py` bascule automatiquement sur une recherche via l'API DuckDuckGo pour ne pas bloquer l'utilisateur.
+Le diagnostic est généré en temps réel par Mistral via Ollama.
+Le lien du dépôt GitHub est disponible sur la page de garde du rapport.
