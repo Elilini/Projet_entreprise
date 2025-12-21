@@ -34,10 +34,6 @@ Pour l'IA, il faut installer **Ollama**. Une fois l'installation finie, il faut 
 * **script.js** : Il fait le lien avec le backend. Il récupère les données JSON de l'analyse et pilote les graphiques.
 * **chart.js** : C'est une bibliothèque JavaScript externe utilisée pour dessiner les graphiques de manière dynamique (courbes de croissance, jauge de santé et barres de pollution CO2).
 
-**Dossier Rapport :**
-
-* Contient le rapport final en PDF et les sources LaTeX qui ont servi à le rédiger.
-
 ---
 
 ## 3. Comment lancer le projet
@@ -76,4 +72,4 @@ Ouvrir le fichier `frontend/index.html` dans un navigateur. On saisit un SIREN (
 
 Si le SIREN n'est pas trouvé dans le fichier CSV, le script `analyse.py` bascule automatiquement sur une recherche via l'API DuckDuckGo pour ne pas bloquer l'utilisateur.
 Le diagnostic est généré en temps réel par Mistral via Ollama.
-Le lien du dépôt GitHub est disponible sur la page de garde du rapport.
+
